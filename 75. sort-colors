@@ -1,0 +1,24 @@
+class Solution {
+    public void sortColors(int[] nums) {
+        int i = 0; // End of zeros
+        int j = i; // End of ones
+        int k = nums.length - 1; // Start of twos
+        
+        while (j <= k) {
+            int val = nums[j];
+            
+            if (val == 0) {
+                swap(nums, i++, j++);
+            } else if (val == 2) {
+                swap(nums, k--, j);
+            } else 
+                j++;
+        }
+    }
+    
+    private void swap(int[] nums, int i, int j) {
+        int t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
+    }
+}
