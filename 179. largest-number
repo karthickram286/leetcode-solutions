@@ -1,0 +1,38 @@
+class Solution {
+    public String largestNumber(int[] nums) {
+        
+        if (nums.length == 0) {
+            return "";
+        }
+        
+        // Converting to a string array
+        String[] strArr = new String[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            strArr[i] = Integer.toString(nums[i]);
+        }
+        
+        // Sorting by overriding the compartor interface.
+        Arrays.sort(strArr, new Comparator<String>() {
+            public int compare(String a, String b) {
+                
+                // Finding the largest number by comparing the two possible ordering
+                String o1 = a + b;
+                String o2 = b + a;
+                return o2.compareTo(o1);
+            }
+        });
+        
+        // For arrays which has only zeros in it
+        if (strArr[0].equals("0")) {
+            return "0";
+        }
+        
+        // Merging the sorted array into a string
+        StringBuilder sb = new StringBuilder();
+        for (String s : strArr) {
+            sb.append(s);
+        }
+        
+        return sb.toString();
+    }
+}
