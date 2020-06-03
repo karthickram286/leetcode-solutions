@@ -1,0 +1,24 @@
+class Solution {
+    public int twoCitySchedCost(int[][] costs) {
+        
+        // Cost for sending all to city A
+        int cityACost = 0;
+        for (int i = 0; i < costs.length; i++) {
+            cityACost += costs[i][0];
+        }
+        
+        // Difference in cost if we send all to city B
+        int[] cityBDiff = new int[costs.length];
+        for (int i = 0; i < costs.length; i++) {
+            cityBDiff[i] = costs[i][1] - costs[i][0];
+        }
+        
+        // Sorting the difference and adding half of it 
+        // to the total cost for city A
+        Arrays.sort(cityBDiff);
+        for (int i = 0; i < costs.length/2; i++) {
+            cityACost += cityBDiff[i];
+        }
+        return cityACost;
+    }
+}
