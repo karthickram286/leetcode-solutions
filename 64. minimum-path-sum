@@ -1,0 +1,23 @@
+class Solution {
+    public int minPathSum(int[][] grid) {
+        
+        int rows = grid.length;
+        int cols = grid[0].length;
+        int[][] dp = new int[rows][cols];
+        
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                
+                if (i == 0 && j == 0)
+                    dp[i][j] = grid[i][j];
+                else if (i == 0)        // For 1st row
+                    dp[i][j] = dp[i][j-1] + grid[i][j];
+                else if (j == 0)        // For 1st col
+                    dp[i][j] = dp[i-1][j] + grid[i][j];
+                else                    // Minimum of both paths plus the current value
+                    dp[i][j] = Math.min(dp[i][j-1], dp[i-1][j]) + grid[i][j];
+            }
+        }
+        return dp[rows-1][cols-1];
+    }
+}
