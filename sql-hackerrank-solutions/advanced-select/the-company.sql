@@ -20,11 +20,13 @@ COUNT (DISTINCT Senior_Manager.senior_manager_code),
 COUNT (DISTINCT Manager.manager_code),
 COUNT (DISTINCT Employee.employee_code)
 
+-- Joining all the tables based on primary keys and corresponding foreign keys
 from Company 
 JOIN Lead_Manager ON Company.company_code = Lead_Manager.company_code
 JOIN Senior_Manager ON Lead_Manager.lead_manager_code = Senior_Manager.lead_manager_code
 JOIN Manager ON Senior_Manager.senior_manager_code = Manager.senior_manager_code
 JOIN Employee ON Manager.manager_code = Employee.manager_code
 
+-- Grouping the result on company code an founder and sorting by company code
 GROUP BY Company.company_code, Company.founder
 ORDER BY Company.company_code;
