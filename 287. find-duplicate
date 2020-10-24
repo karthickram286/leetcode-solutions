@@ -1,0 +1,15 @@
+class Solution {
+    public int findDuplicate(int[] nums) {
+        
+        List<Integer> list = new ArrayList<>();
+        
+        for (int n : nums) {
+            if (list.contains(n))
+                return n;
+            else
+                list.add(n);
+        }
+        
+        return -1;
+    }
+}
