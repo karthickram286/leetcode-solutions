@@ -1,0 +1,24 @@
+class Solution {
+    public int[] smallerNumbersThanCurrent(int[] nums) {
+        
+        int[] hash = new int[101];
+        
+        for (int i : nums) {
+            hash[i]++;
+        }
+        
+        int s = 0;
+        int[] sum = new int[101];
+        for (int i = 0; i < 101; i++) {
+            sum[i] = s;
+            s += hash[i];
+        }
+        
+        int[] ans = new int[nums.length];
+        for (int i = 0; i < ans.length; i++) {
+            ans[i] = sum[nums[i]];
+        }
+        
+        return ans;
+    }
+}
