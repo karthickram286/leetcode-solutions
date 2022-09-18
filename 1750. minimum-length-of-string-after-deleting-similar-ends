@@ -1,0 +1,29 @@
+class Solution {
+    public int minimumLength(String s) {
+        
+        int left = 0, right = s.length() - 1;
+        while (left < right) {
+            char c;
+            
+            if (s.charAt(left) == s.charAt(right)) {
+                c = s.charAt(left);
+                
+                while(s.charAt(left) == c && s.charAt(left + 1) == c && left + 1 < right) {
+                    left++;
+                }
+                
+                while(s.charAt(right) == c && s.charAt(right - 1) == c && left + 1 < right) {
+                    right--;
+                }
+                
+            } else {
+                break; 
+            }
+            
+            left++;
+            right--;
+            
+        }
+        return right - left + 1;
+    }
+}
