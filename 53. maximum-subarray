@@ -1,13 +1,16 @@
 class Solution {
     public int maxSubArray(int[] nums) {
-        
-        int max_so_far = nums[0], curr_max = nums[0];
+    
+        int currentMax = nums[0], maxSoFar = nums[0];
         
         for (int i = 1; i < nums.length; i++) {
-            curr_max = Math.max(nums[i], curr_max + nums[i]);
-            max_so_far = Math.max(curr_max, max_so_far);
+            // If nums[i] is greater it means a new sub array is starting from here
+            // If currentMax + nums[i]  is greater it means we are continuing a sub-array
+            currentMax = Math.max(nums[i], currentMax + nums[i]);
+            
+            maxSoFar = Math.max(currentMax, maxSoFar);
         }
         
-        return max_so_far;
+        return maxSoFar;
     }
 }
