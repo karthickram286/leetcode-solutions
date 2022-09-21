@@ -1,0 +1,17 @@
+class Solution {
+    public int jump(int[] nums) {
+        int n = nums.length, end = 0, farthest = 0, jump = 0;
+        
+        for (int i = 0; i < n-1; i++) {
+            farthest = Math.max(farthest, i + nums[i]);
+            
+            // Whenever the current position reaches the end, it means we can't reach that position without a jump. Then the farthest so far would be considered as the end.
+            if (i == end) {         
+                jump++;
+                end = farthest;
+            }
+        }
+        
+        return jump;
+    }
+}
