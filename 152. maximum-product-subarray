@@ -1,0 +1,31 @@
+class Solution {
+    public int maxProduct(int[] nums) {
+        
+        int max = Integer.MIN_VALUE, product = 1;
+        
+        /*
+        Idea behind it is very simple. You have 2 situations (forget about 0's for a second). 
+        First scenario: you have even number of negative numbers. Then - the solutions is whole array.
+        Second scenario: you have odd number of negative numbers. Then - the solutions starts from left till the last negative number or the other way around.
+
+        Now, think about 0's. They are nothing different than just start of an array, and you don't have to think about them at all :)
+        */
+        
+        for (int num : nums) {
+            product *= num;
+            max = Math.max(max, product);
+            if (product == 0)
+                product = 1;
+        }
+        
+        product = 1;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            product *= nums[i];
+            max = Math.max(max, product);
+            if (product == 0)
+                product = 1;
+        }
+        
+        return max;
+    }
+}
