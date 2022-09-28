@@ -1,0 +1,42 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
+        int diff = (b - a), step = 0;
+        ListNode aNode = list1, bNode = list1;
+        
+        // Move second pointer after 'diff' node
+        while(diff-- > 0) {
+            bNode = bNode.next;
+        }
+        
+        // Move both pointers
+        while(++step != a) {
+            aNode = aNode.next;
+            bNode = bNode.next;
+        }
+        // The second pointer point to the element from list1
+        // and it should skip anything less than b
+        bNode = bNode.next.next;
+        
+        // The first pointer should point to list2
+        aNode.next = list2;
+        
+        // The end of the this list should point 
+        // back to list1 from second pointer
+        while(aNode.next != null) {
+            aNode = aNode.next;
+        }
+        aNode.next = bNode;
+        
+        return list1;
+    }
+}
