@@ -1,0 +1,26 @@
+class Solution {
+    public int reverse(int x) {
+        String s = Integer.toString(x);
+        
+        StringBuilder res = new StringBuilder();
+        if (x < 0)
+            res.append("-");
+        
+        int pos = s.length() - 1;
+        
+        // Skip leading zeros
+        while(s.charAt(pos) == 0 && pos >=0)
+            pos--;
+        
+        // Iterate from last and skip minus symbol
+        while(pos >= 0 && s.charAt(pos) != '-')
+            res.append(s.charAt(pos--));
+        
+        // If parsing doesn't work return 0
+        try {
+            return Integer.parseInt(res.toString());
+        } catch(Exception e) {
+            return 0;
+        }
+    }
+}
