@@ -1,0 +1,42 @@
+class Solution {
+    private List<List<Integer>> list = new ArrayList<>(); 
+    
+    public List<List<Integer>> threeSum(int[] nums) {
+        
+        Arrays.sort(nums);          // Sorting it first
+        
+        // Iterating for values only less than or equal to zero since numbers more than zero won't add up to 0
+        for (int i = 0; i < nums.length && nums[i] <= 0; ++i) {
+            
+            // If current and previous numbers are the same we skip it
+            if (i == 0 || nums[i-1] != nums[i]) {
+                search(nums, i);
+            }
+        }
+        
+        return list;
+    }
+    
+    private void search(int[] nums, int i) {
+        
+        // Seaching for triplets from next element to n-1
+        int left = i + 1, right = nums.length - 1;
+
+        while(left < right) {
+            int sum = nums[left] + nums[right] + nums[i];
+            if (sum == 0) {
+                list.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                left++;
+                right--;
+                
+                // Incrementing left until the next value is same to avoid duplicates
+                while(left < right && nums[left] == nums[left - 1])
+                    left++;
+            }
+            else if (sum > 0)
+                right--;
+            else
+                left++;
+        }
+    }
+}
