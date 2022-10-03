@@ -1,0 +1,23 @@
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        
+        // Sorting based on the start values
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        
+        LinkedList<int[]> list = new LinkedList<>();
+        
+        for (int[] interval : intervals) {
+            // If the list of merged intervals is empty or if the current
+            // interval does not overlap with the previous, add to the list.
+            if (list.isEmpty() || list.getLast()[1] < interval[0]) {
+                list.add(interval);
+            }
+            // If there is an overlap merge the current and previous intervals
+            // by updating the end with max of both ends
+            else {
+                list.getLast()[1] = Math.max(list.getLast()[1], interval[1]);
+            }
+        }
+        return list.toArray(new int[list.size()][]);
+    }
+}
