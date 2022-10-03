@@ -1,0 +1,85 @@
+class LRUCache {
+
+    // Using a doubly linked list with head and tail
+    // The least recently used node will be in the tail and new nodes will be added to the head
+    private Node head = new Node();
+    private Node tail = new Node();
+    // Map with key as number and value as the node in the DLL
+    private Map<Integer, Node> map = new HashMap<>();
+    private int size = 0;
+    
+    public LRUCache(int capacity) {
+        size = capacity;
+        head.next = tail;
+        tail.prev = head;
+    }
+    
+    public int get(int key) {
+        Node node = map.get(key);
+        
+        // If it's not present we are returning -1
+        if (node == null)
+            return -1;
+        else {
+            
+            // If it is present we need to promote it to the front, before returning the value
+            int result = node.val;
+            removeNode(node);
+            addNode(node);
+            return result;
+        }
+    }
+    
+    public void put(int key, int value) {
+        Node node = map.get(key);
+        
+        // If node is null then we have to insert a new node to the DLL
+        if (node == null) {
+            
+            // If size is full we need to remove a node from tail
+            if (map.size() == size) {
+                map.remove(tail.prev.key);
+                removeNode(tail.prev);
+            }
+            Node newNode = new Node();
+            newNode.key = key;
+            newNode.val = value;
+            map.put(key, newNode);
+            addNode(newNode);
+        } else {
+            // If key is already present we need to update the value and promote it to the front
+            // So, we are removing it from the DLL and adding it again
+            node.val = value;
+            removeNode(node);
+            addNode(node);
+        }
+    }
+    
+    // Adds the node to the front of the DLL
+    private void addNode(Node node) {
+        node.next = head.next;
+        head.next.prev = node;
+        head.next = node;
+        node.prev = head;
+    }
+    
+    // Removes the node from the DLL
+    private void removeNode(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+    
+    private class Node {
+        int val;
+        int key;        // This key is a reference to the key in the map
+        Node prev;
+        Node next;
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
