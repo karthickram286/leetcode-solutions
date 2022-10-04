@@ -1,0 +1,26 @@
+class Solution {
+    public int minMeetingRooms(int[][] intervals) {
+        
+        // Sorting the intervals based on start time
+        Arrays.sort(intervals, (a, b) -> (a[0] - b[0]));
+        
+        // Adding the end of first interval to min-heap
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+        heap.add(intervals[0][1]);
+        
+        for (int i = 1; i < intervals.length; i++) {
+            
+            // If the start time of current interval is greater than the minimum ending interval
+            // Then it means that meeting room is free. So we will remove that meeting room
+            // and add the end of this interval
+            if (intervals[i][0] >= heap.peek())
+                heap.poll();
+            
+            // If not, then we need to create another meeting room. So, we will add the end of this interval to heap
+            heap.add(intervals[i][1]);
+        }
+        
+        // The size of heap will be the maximum rooms needed
+        return heap.size();
+    }
+}
