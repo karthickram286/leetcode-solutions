@@ -1,0 +1,27 @@
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        
+        // Counting the occurrance with a map
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            if (!map.containsKey(num))
+                map.put(num, 1);
+            else
+                map.put(num, map.get(num) + 1);
+        }
+               
+        // Max heap using the count
+        PriorityQueue<Pair<Integer, Integer>> heap = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+        for (Map.Entry<Integer, Integer> e : map.entrySet()) {
+            heap.add(new Pair<>(e.getKey(), e.getValue()));
+        }
+                
+        // Removing k times from the heap and storing in array
+        int[] result = new int[k];
+        for (int i = 0; i < k; i++) {
+            result[i] = heap.remove().getKey();
+        }
+        
+        return result;
+    }
+}
