@@ -1,41 +1,29 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         
-        int start = 0;
-        int end = 0;
-        int maxLength = -1;
         HashSet<Character> set = new HashSet<>();
+        int left = 0, right = 0, maxLength = 0;
         
-        while (end < s.length()) {
+        while (right < s.length()) {
             
-            // Adding the characters between the window to a set
-            if (!set.contains(s.charAt(end))) {
-                set.add(s.charAt(end));
-                end++;
-                
-                maxLength = Math.max(maxLength, (end-start));
+            // If set is empty or if both pointers are in same position
+            // move right
+            if (set.isEmpty() || right == left) {
+                set.add(s.charAt(right));
+                right++;
+            } else if (!set.contains(s.charAt(right))) {
+                // If value is not present in set add to it and move right
+                set.add(s.charAt(right));
+                right++;
             } else {
-                
-                // If the end value already occurs in the set, moving the start to the character
-                // which matches the end character.
-                while (start < end && end < s.length()) {
-                    if (s.charAt(start) != s.charAt(end)) {
-                        
-                        // The characters before the matching character will be removed
-                        set.remove(s.charAt(start));
-                        start++;
-                    } else {
-                        start++;
-                        end++;
-                        break;
-                    }
-                }
+                // If value is already present remove it from set and reduce the window
+                // by moving left
+                set.remove(s.charAt(left));
+                left++;
             }
+            
+            maxLength = Math.max(maxLength, set.size());
         }
-        
-        // For cases where all the characters are unique
-        if (maxLength == -1)
-            maxLength = s.length();
         
         return maxLength;
     }
