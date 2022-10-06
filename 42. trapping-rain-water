@@ -1,0 +1,35 @@
+class Solution {
+    public int trap(int[] height) {
+        int left = 0, right = height.length - 1, cnt = 0;
+        int leftMax = 0, rightMax = 0;
+        
+        while (left < right) {
+            
+            // If height of left is smaller than height of right
+            // the water is most likely trapped based on the max of left 
+            if (height[left] < height[right]) {
+                
+                // If the current position is taller than max of left then it wont trap any water
+                if (height[left] >= leftMax) {
+                    leftMax = height[left];
+                } else {
+                    // If the current position is shorter than max of left then it will trap water
+                    cnt += leftMax - height[left];
+                }
+                left++;
+            } else {
+                
+                // If the current position is taller than max of right then it wont trap any water
+                if (height[right] >= rightMax) {
+                    rightMax = height[right];
+                } else {
+                    // If the current position is shorter than max of right then it will trap water
+                    cnt += rightMax - height[right];
+                }
+                right--;
+            }
+        }
+        
+        return cnt;
+    }
+}
