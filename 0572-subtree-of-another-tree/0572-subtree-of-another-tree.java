@@ -16,26 +16,30 @@
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
         
+        // Base case
         if (root == null) {
             return false;
         }
         
-        if (isIdentical(root, subRoot)) {
-            return true;
+        // If the value matches check if it is identical
+        if (root.val == subRoot.val) {
+            if (isIdentical(root, subRoot))
+                return true;
         }
         
         return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
     }
     
-    private boolean isIdentical(TreeNode root1, TreeNode root2) {
-        if (root1 == null && root2 == null) {
+    public boolean isIdentical(TreeNode node, TreeNode subRoot) {
+        
+        // If they are both null return True
+        if (node == null && subRoot == null) 
             return true;
-        }
         
-        else if (root1 == null || root2 == null || root1.val != root2.val) {
+        // If either of them is null or if value doesn't match return False
+        if (node == null || subRoot == null || node.val != subRoot.val) 
             return false;
-        }
         
-        return isIdentical(root1.left, root2.left) && isIdentical(root1.right, root2.right);
+        return isIdentical(node.left, subRoot.left) && isIdentical(node.right, subRoot.right);
     }
 }
