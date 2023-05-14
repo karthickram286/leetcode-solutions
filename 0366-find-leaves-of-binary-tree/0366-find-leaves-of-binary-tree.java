@@ -34,11 +34,11 @@ class Solution {
         // Base cases
         if (root == null)
             return;
-        if (root.left == null && root.right == null) {
-            list.add(root.val);
-            root = null;
-            return;
-        }
+        // if (root.left == null && root.right == null) {
+        //     list.add(root.val);
+        //     root = null;
+        //     return;
+        // }
         
         if (root.left != null && root.left.left == null && root.left.right == null) {
             list.add(root.left.val);
