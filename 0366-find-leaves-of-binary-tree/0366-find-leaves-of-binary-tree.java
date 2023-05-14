@@ -18,12 +18,14 @@ class Solution {
         
         List<List<Integer>> leavesList = new ArrayList<>();
         
+        // Remove the leaves until the root has no children
         while(root.left != null || root.right != null) {
             List<Integer> list = new ArrayList<>();
             removeLeaves(root, list);
             leavesList.add(list);
         } 
         
+        // Add the root to the list at last
         leavesList.add(List.of(root.val));
         
         return leavesList;
@@ -31,20 +33,17 @@ class Solution {
     
     private void removeLeaves(TreeNode root, List<Integer> list) {
         
-        // Base cases
+        // Base case
         if (root == null)
             return;
-        // if (root.left == null && root.right == null) {
-        //     list.add(root.val);
-        //     root = null;
-        //     return;
-        // }
         
+        // If left has no children remove left
         if (root.left != null && root.left.left == null && root.left.right == null) {
             list.add(root.left.val);
             root.left = null;
         }
         
+        // If right has no children remove right
         if (root.right != null && root.right.left == null && root.right.right == null) {
             list.add(root.right.val);
             root.right = null;
